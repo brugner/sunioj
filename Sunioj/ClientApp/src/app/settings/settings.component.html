@@ -1,0 +1,159 @@
+<section class="cta-section p-3 p-lg-5 theme-bg-light py-5">
+    <div class="container">
+        <h2 class="title mb-2">Settings</h2>
+        <span>Update the site preferences as you like.</span>
+    </div>
+</section>
+
+<div class="minh-100">
+    <section class="container pt-3 pt-lg-5 animate__animated animate__fadeIn">
+        <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
+
+            <h4>Site</h4>
+
+            <div class="form-group text-center mb-5">
+                <img [src]="siteImageUrl" alt="Site image" width="300" height="300" class="mb-1" [ngClass]="(siteImageUrl.length > 0) ? 'd-initial' : 'd-none'">
+                <br>
+                <label for="imgInput">Site image</label>
+                <br>
+                <input name="imgInput" type="file" accept="image/*" placeholder="Choose an image" (change)="onSiteImageChanged($event)" value="Choose an image">
+                <small class="form-text text-muted pt-1"><i class="fas fa-info-circle mr-2 text-primary"></i>You can select an image or leave it blank to show the default image.</small>
+                <button class="btn btn-primary mt-1" type="button" [disabled]="siteImage === undefined || isSubmittingImage" (click)="uploadSettingImage('site.image')"><i class="fa fa-upload"></i> Update image</button>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="siteName" placeholder="Name">
+                <span *ngIf="siteName.invalid && siteName.errors.required && (siteName.dirty || siteName.touched)" class="text-danger">
+                    The site name is required.
+                </span>
+                <span *ngIf="siteName.invalid && siteName.errors.maxlength && (siteName.dirty || siteName.touched)" class="text-danger">
+                    Max length must be 15.
+                </span>
+            </div>
+
+            <h4 class="mt-5">Editor</h4>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="editorName" placeholder="Name">
+                <span *ngIf="editorName.invalid && editorName.errors.required && (editorName.dirty || editorName.touched)" class="text-danger">
+                    Name is required.
+                </span>
+                <span *ngIf="editorName.invalid && editorName.errors.maxlength && (editorName.dirty || editorName.touched)" class="text-danger">
+                    Max length must be 30.
+                </span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="editorEmail" placeholder="Email">
+                <span *ngIf="editorEmail.invalid && editorEmail.errors.required && (editorEmail.dirty || editorEmail.touched)" class="text-danger">
+                    Email is required.
+                </span>
+                <span *ngIf="editorEmail.invalid && editorEmail.errors.maxlength && (editorEmail.dirty || editorEmail.touched)" class="text-danger">
+                    Max length must be 100.
+                </span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="editorTitle" placeholder="Title">
+                <span *ngIf="editorTitle.invalid && editorTitle.errors.required && (editorTitle.dirty || editorTitle.touched)" class="text-danger">
+                    Title is required.
+                </span>
+                <span *ngIf="editorTitle.invalid && editorTitle.errors.maxlength && (editorTitle.dirty || editorTitle.touched)" class="text-danger">
+                    Max length must be 40.
+                </span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="editorSubtitle" placeholder="Subtitle">
+                <span *ngIf="editorSubtitle.invalid && editorSubtitle.errors.required && (editorSubtitle.dirty || editorSubtitle.touched)" class="text-danger">
+                    Subtitle is required.
+                </span>
+                <span *ngIf="editorSubtitle.invalid && editorSubtitle.errors.maxlength && (editorSubtitle.dirty || editorSubtitle.touched)" class="text-danger">
+                    Max length must be 250.
+                </span>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" formControlName="editorBio" placeholder="A short description that goes in the menu below the profile picture"></textarea>
+                <span *ngIf="editorBio.invalid && editorBio.errors.required && (editorBio.dirty || editorBio.touched)" class="text-danger">
+                    Bio is required.
+                </span>
+                <span *ngIf="editorBio.invalid && editorBio.errors.maxlength && (editorBio.dirty || editorBio.touched)" class="text-danger">
+                    Max length must be 120.
+                </span>
+            </div>
+
+            <h4 class="mt-5">About me</h4>
+
+            <div class="form-group text-center mb-5">
+                <img [src]="aboutMeImageUrl" alt="About me image" width="300" height="300" class="mb-1" [ngClass]="(aboutMeImageUrl.length > 0) ? 'd-initial' : 'd-none'">
+                <br>
+                <label for="imgInput">About me image</label>
+                <br>
+                <input name="imgInput" type="file" accept="image/*" placeholder="Choose an image" (change)="onAboutMeImageChanged($event)" value="Choose an image">
+                <small class="form-text text-muted pt-1"><i class="fas fa-info-circle mr-2 text-primary"></i>You can select an image or leave it blank to show the default image.</small>
+                <button class="btn btn-primary mt-1" type="button" [disabled]="aboutMeImage === undefined || isSubmittingImage" (click)="uploadSettingImage('about-me.image')"><i class="fa fa-upload"></i> Update image</button>
+            </div>
+
+            <div class="form-group">
+                <editor apiKey="bigbujgb61fxmvlotqh3p6v39qhsj084matu83gk9hv5ku1x" formControlName="aboutMeWhatIDo" [init]="editorConfig"></editor>
+
+                <span *ngIf="aboutMeWhatIDo.invalid && aboutMeWhatIDo.errors.required && (aboutMeWhatIDo.dirty || aboutMeWhatIDo.touched)" class="text-danger">
+                    This section is required.
+                </span>
+            </div>
+
+            <h4 class="mt-5">Expertise</h4>
+
+            <div class="form-group">
+                <input type="text" class="form-control d-inline col-4 mr-1" formControlName="skillName" placeholder="Skill" maxlength="50" (inputChanged)='onSkillNameChanged($event)' />
+                <input type="number" max="100" min="0" class="form-control d-inline col-2 mr-1" formControlName="skillKnowledge" placeholder="Knowledge" />
+                <button type="button" class="btn btn-primary mb-1" (click)="addSkill()" [disabled]="skillName.value === '' || skillKnowledge.value === ''">Add</button>
+
+                <ul>
+                    <li *ngFor="let skill of skills"><a [routerLink]="" (click)="removeSkill(skill)">{{ skill }}</a></li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" formControlName="expertiseSummary" placeholder="The summary that goes at the end of the skill list" title="The summary that goes at the end of the skill list"></textarea>
+                <span *ngIf="expertiseSummary.invalid && expertiseSummary.errors.required && (expertiseSummary.dirty || expertiseSummary.touched)" class="text-danger">
+                    Summary is required.
+                </span>
+                <span *ngIf="expertiseSummary.invalid && expertiseSummary.errors.maxlength && (expertiseSummary.dirty || expertiseSummary.touched)" class="text-danger">
+                    Max length must be 400.
+                </span>
+            </div>
+
+            <h4 class="mt-5">Socials</h4>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="socialsLinkedIn" placeholder="LinkedIn">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="socialsGithub" placeholder="Github">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="socialsStackOverflow" placeholder="StackOverflow">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="socialsTwitter" placeholder="Twitter">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="socialsFacebook" placeholder="Facebook">
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" formControlName="socialsInstagram" placeholder="Instagram">
+            </div>
+
+            <div class="form-group buttons-row text-right">
+                <button class="btn btn-primary" type="submit" [disabled]="!settingsForm.valid || isSubmitting"><i class="fa fa-save"></i> Update settings</button>
+            </div>
+        </form>
+    </section>
+</div>

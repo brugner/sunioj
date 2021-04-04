@@ -1,0 +1,55 @@
+<section class="cta-section theme-bg-light py-5 animate__animated animate__fadeIn">
+    <div class="container text-center single-col-max-width">
+        <h2 class="heading">Contact</h2>
+        <div class="intro">
+            <p>Interested in hiring me for your project or just want to say hi? You can fill in the contact form below or send me an email to <a href="mailto:#">{{editorEmail}}</a></p>
+            <p>Want to get connected? Follow me on the social channels below.</p>
+            <ul *ngIf="settingsLoaded" class="list-inline mb-0">
+                <li *ngIf="socialsLinkedIn.length > 0" class="list-inline-item mb-3"><a href="{{socialsLinkedIn}}" target="_blank"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+                <li *ngIf="socialsGithub.length > 0" class="list-inline-item mb-3"><a href="{{socialsGithub}}" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a></li>
+                <li *ngIf="socialsStackoverflow.length > 0" class="list-inline-item mb-3"><a href="{{socialsStackoverflow}}" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+                <li *ngIf="socialsTwitter.length > 0" class="list-inline-item mb-3"><a href="{{socialsTwitter}}" target="_blank"><i class="fab fa-twitter fa-fw"></i></a></li>
+                <li *ngIf="socialsFacebook.length > 0" class="list-inline-item mb-3"><a href="{{socialsFacebook}}" target="_blank"><i class="fab fa-facebook fa-fw"></i></a></li>
+                <li *ngIf="socialsInstagram.length > 0" class="list-inline-item mb-3"><a href="{{socialsInstagram}}" target="_blank"><i class="fab fa-instagram fa-fw"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section px-3 py-5 p-md-5 animate__animated animate__fadeIn">
+    <div class="container">
+
+        <form [formGroup]="contactForm" (ngSubmit)="send()" class="contact-form col-lg-8 mx-lg-auto" method="post" action="#">
+            <h3 class="text-center mb-3">Get in touch</h3>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="sr-only" for="name">Name</label>
+                    <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="sr-only" for="email">Email</label>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Email">
+                </div>
+
+                <div class="form-group col-12">
+                    <select class="custom-select" formControlName="servicePackageId">
+                        <option *ngFor="let servicePackage of servicePackages" value="{{servicePackage.id}}">{{servicePackage.name}}</option>
+                        <option value="0">Not sure</option>
+                    </select>
+                    <small class="form-text text-muted pt-1"><i class="fas fa-info-circle mr-2 text-primary"></i>Want to know what's included in each package? Check the <a routerLink="/services-and-pricing" target="_blank">services & pricing</a> page.</small>
+                </div>
+
+                <div class="form-group col-12">
+                    <label class="sr-only" for="message">Message</label>
+                    <textarea class="form-control" formControlName="message" placeholder="Enter your message" rows="10" required="" aria-required="true"></textarea>
+                </div>
+
+                <div class="form-group col-12">
+                    <button type="submit" class="btn btn-block btn-primary py-2" [disabled]="!contactForm.valid || isSubmitting"><i class="fa fa-paper-plane"></i> Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

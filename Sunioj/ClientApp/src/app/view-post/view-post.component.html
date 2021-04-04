@@ -1,0 +1,79 @@
+<div *ngIf="!isLoading" class="animate__animated animate__fadeIn">
+    <section class="cta-section theme-bg-light py-5">
+        <div class="container single-col-max-width">
+            <header class="blog-post-header">
+                <h2 class="title mb-2">{{post.title}}</h2>
+
+                <div class="meta mb-3">
+                    <span class="date">Published {{post.createdAt | timeAgo}}</span>
+                    <span class="time">{{post.content | readingTime}}</span>
+                    <span class="comment">4 comments</span>
+                </div>
+
+                <span *ngFor="let tag of post.tags"><a routerLink="/blog/tag/{{tag.name}}">#{{tag.name}} </a></span>
+            </header>
+        </div>
+    </section>
+
+    <article class="blog-post px-3 py-5 p-md-5">
+        <div class="container single-col-max-width">
+            <div class="blog-post-body minh-100">
+                <div [innerHTML]="post.content | rawHtml"></div>
+            </div>
+
+            <div *ngIf="authService.user" class="card mt-5 border-danger">
+                <div class="card-header text-white bg-danger border-danger">
+                    <strong>Editors only</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8">
+                            <p class="mb-0"><strong>Edit the post</strong></p>
+                            <span class="card-text">You can edit the post as many times as you want.</span>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <a routerLink="/posts/{{post.id}}" class="btn btn-primary btn-block"><i class="fa fa-edit fa-fw"></i>Edit</a>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8">
+                            <p class="mb-0"><strong>Delete the post</strong></p>
+                            <span class="card-text">There's no turning back from deleting a post. Be careful.</span>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <button (click)="deletePost(post.id)" class="btn btn-danger btn-block"><i class="fa fa-trash fa-fw"></i>Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-comments-section">
+
+            </div>
+        </div>
+    </article>
+
+    <section class="promo-section py-5 text-center">
+        <div class="container single-col-max-width">
+            <button class="btn btn-primary" routerLink="/blog"><i class="fa fa-arrow-circle-left fa-fw"></i>Back to the blog</button>
+        </div>
+    </section>
+
+    <section class="promo-section py-5 text-center">
+        <div class="container single-col-max-width">
+            <hr>
+            <h3 class="title">All tags</h3>
+            <span *ngFor="let tag of allTags"><a routerLink="/blog/tag/{{tag.name}}">#{{tag.name}} </a></span>
+        </div>
+    </section>
+</div>
+
+<div *ngIf="isLoading" class="minh-100 d-flex justify-content-center align-items-center animate__animated animate__fadeIn">
+    Loading..
+</div>

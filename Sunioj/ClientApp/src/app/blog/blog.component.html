@@ -1,0 +1,71 @@
+<div *ngIf="!isLoading" class="animate__animated animate__fadeIn">
+    <section class="cta-section theme-bg-light py-5">
+        <div class="container single-col-max-width">
+            <h2 class="heading">{{blogTitle}}</h2>
+            <div class="intro">{{blogSubtitle}}</div>
+        </div>
+    </section>
+
+    <section *ngIf="authService.user" class="mt-3">
+        <div class="container single-col-max-width">
+            <div class="card border-danger">
+                <div class="card-header text-white bg-danger border-danger">
+                    <strong>Editors only</strong>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8">
+                            <p class="mb-0"><strong>New post</strong></p>
+                            <span class="card-text">Come on, even if it is two lines long.</span>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <a routerLink="/posts/new" class="btn btn-primary btn-block"><i class="fa fa-plus-circle"></i> Create</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    Post count: {{posts?.length}}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section *ngIf="selectedTag">
+        <div class="container single-col-max-width my-5">
+            <h4>Posts with tag <strong>#{{selectedTag}}</strong></h4>
+            <button class="btn btn-primary" routerLink="/blog">Back to all posts</button>
+            <hr>
+        </div>
+    </section>
+
+    <section class="blog-list px-3 py-5 p-md-1 minh-100">
+        <div *ngFor='let post of posts' class="container single-col-max-width my-5">
+            <div class="item mb-5">
+                <div class="media">
+                    <img class="mr-3 post-thumb d-none d-md-flex" src="{{post.thumbnail}}" alt="Post thumbnail">
+
+                    <div class="media-body">
+                        <h3 class="title mb-1"><a routerLink="/blog/post/{{post.slug}}">{{post.title}}</a></h3>
+
+                        <div class="meta mb-1">
+                            <span class="date">Published {{post.createdAt | timeAgo}}</span>
+                            <span class="time">{{post.content | readingTime}}</span>
+                            <span class="comment">8 comments</span>
+                        </div>
+
+                        <div class="intro text-justify">
+                            {{post.summary}}
+                        </div>
+
+                        <span *ngFor="let tag of post.tags"><a routerLink="/blog/tag/{{tag.name}}">#{{tag.name}} </a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div *ngIf="isLoading" class="minh-100 d-flex justify-content-center align-items-center animate__animated animate__fadeIn">
+    Loading..
+</div>

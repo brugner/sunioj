@@ -1,0 +1,43 @@
+<div [hidden]="isLoading" class="animate__animated animate__fadeIn">
+    <section class="cta-section p-3 p-lg-5 theme-bg-light py-5">
+        <div class="container">
+            <h2 class="title mb-2">Messages</h2>
+            <span>From the contact form.</span>
+        </div>
+    </section>
+
+    <div class="minh-100">
+        <section class="container p-3 p-lg-5 animate__animated animate__fadeIn">
+            <div class="row">
+                <div class="item col-12">
+                    <div class="item-inner">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="messagesTrigger" class="row-border hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Package</th>
+                                    <th>Created at</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let message of messages">
+                                    <td>{{ message.id }}</td>
+                                    <td>{{ message.name }}</td>
+                                    <td><a routerLink="/messages/{{message.id}}" title="{{message.body}}">{{ message.email }}</a></td>
+                                    <td>{{ message.servicePackageId }}</td>
+                                    <td>{{ message.createdAt | date:"yyyy/MM/dd" }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div *ngIf="isLoading" class="minh-100 d-flex justify-content-center align-items-center animate__animated animate__fadeIn">
+    Loading..
+</div>

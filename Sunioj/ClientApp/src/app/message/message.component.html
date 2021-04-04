@@ -1,0 +1,38 @@
+<section class="cta-section p-3 p-lg-5 theme-bg-light py-5">
+    <div class="container">
+        <h2 class="title mb-2">Message</h2>
+        <span>You have received this message.</span>
+    </div>
+</section>
+
+<section class="container p-3 p-lg-5 minh-100 animate__animated animate__fadeIn">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" value="{{message.name}}" disabled>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" value="{{message.email}}" disabled>
+    </div>
+
+    <div class="form-group">
+        <label>Service Package</label>
+        <input type="text" class="form-control" value="{{message.servicePackageId}}" disabled>
+    </div>
+
+    <div class="form-group">
+        <label>Body</label>
+        <textarea class="form-control" value="{{message.body}}" disabled rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Created at</label>
+        <input type="text" class="form-control" value="{{message.createdAt | date: 'yyyy/MM/dd hh:mm'}}" disabled>
+    </div>
+
+    <div class="form-group buttons-row">
+        <button (click)="deleteMessage()" class="btn btn-danger mr-2"><i class="fa fa-trash fa-fw"></i>Delete</button>
+        <button class="btn btn-primary float-right" routerLink="/messages"><i class="fas fa-arrow-alt-circle-left"></i> Back to messages</button>
+    </div>
+</section>

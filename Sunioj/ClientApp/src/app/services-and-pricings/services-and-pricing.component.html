@@ -1,0 +1,51 @@
+<section class="cta-section theme-bg-light py-5 animate__animated animate__fadeIn">
+    <div class="container text-center single-col-max-width">
+        <h2 class="heading">Pricing & services</h2>
+        <div class="intro">
+            <p>I have 10+ years of development experience building software for the web and mobile devices. You can take a look at my <a routerLink="/projects" target="_blank">projects</a> and <a routerLink="/resume" target="_blank">online resume</a> to find out more about my skills and experiences.</p>
+            <p class="mb-0">I'm currently taking on freelance software development work. You're welcome to contact me for a custom quote for your project. I also offer development service packages with fixed pricing. </p>
+        </div>
+    </div>
+</section>
+
+<section class="pricing-section py-5 animate__animated animate__fadeIn">
+    <div class="container single-col-max-width">
+        <div *ngFor="let package of packages" class="card mb-5">
+            <div class="card-header bg-primary text-white">
+                <strong>{{ package.name }}</strong>
+            </div>
+            <div class="card-body text-justify">
+                <span class="pricing-package-desc">{{ package.description }}</span>
+            </div>
+            <div class="card-footer text-right">
+                <strong>${{ package.price }}</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <div class="container single-col-max-width">
+        <h3 class="text-center mb-4">FAQs</h3>
+        <div class="text-center mb-5">You can use this section to address any queries your potential clients may have.</div>
+        <div id="faq-accordion" class="faq-accordion mx-auto">
+
+            <div *ngFor="let faq of faqs" class="card border-0 mb-3">
+                <div class="card-header border-0 p-3 theme-bg-light">
+                    <h4 class="card-title mb-0">
+                        <a data-parent="#faq-accordion" data-toggle="collapse" class="card-toggle collapsed" href="#faq{{faq.id}}" aria-expanded="false">
+                            <i class="fas fa-chevron-down"></i>
+                            {{faq.question}}
+                        </a>
+                    </h4>
+                </div>
+
+                <div class="card-collapse collapse" id="faq{{faq.id}}">
+                    <div class="card-body pt-0 theme-bg-light">
+                        {{faq.answer}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,928 @@
+{
+	"info": {
+		"_postman_id": "3fa68701-f55c-45f5-b1c2-63a53e6d74ac",
+		"name": "Sunioj",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.environment.set(\"accessToken\", data.accessToken);\r",
+									"pm.environment.set(\"authUserId\", data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"editor@sunioj.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Get all posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/list",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get posts with tag x",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/tag/tag1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"tag",
+								"tag1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all published posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tags",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/tags",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get post by slug",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/slug/handmade-practical-soft-shoes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"slug",
+								"handmade-practical-soft-shoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Post 1",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "This is the summary",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "This is the content",
+									"type": "text"
+								},
+								{
+									"key": "tags[0].name",
+									"value": "tag1",
+									"type": "text"
+								},
+								{
+									"key": "isDraft",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "/F:/Pictures/To think/297.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Post 1",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "This is the summary",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "This is the content",
+									"type": "text"
+								},
+								{
+									"key": "tags[0].name",
+									"value": "tag1",
+									"type": "text"
+								},
+								{
+									"key": "isDraft",
+									"value": "false",
+									"type": "text"
+								},
+								{
+									"key": "thumbnail",
+									"type": "file",
+									"src": "/F:/Pictures/To think/297.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/posts/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get post by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/posts/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/posts/30",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"posts",
+								"30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Get all messages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/messages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"body\": \"Hi, this is a sample message!\",\n    \"servicePackageId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/messages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/messages/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"messages",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/messages/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"messages",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service packages",
+			"item": [
+				{
+					"name": "Get all service packages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/service-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-packages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get service package",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/service-packages/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-packages",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update service package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Deluxe\",\n    \"description\": \"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.\",\n    \"price\": 500,\n    \"order\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-packages/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-packages",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete service package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-packages/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-packages",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create service package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Deluxe\",\n    \"description\": \"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.\",\n    \"price\": 500,\n    \"order\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-packages",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-packages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service FAQs",
+			"item": [
+				{
+					"name": "Get all service faqs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/service-faqs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-faqs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete service faq",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/service-faqs/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-faqs",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create service faq",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"question\": \"What does bla bla bla means?\",\n    \"answer\": \"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.\",\n    \"order\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/service-faqs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"service-faqs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Get all settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update settings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"name\": \"Site.Name\",\n        \"value\": \"Magnetar\"\n    },\n    {\n        \"name\": \"Editor.Name\",\n        \"value\": \"The Editor\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/settings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update image setting",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "site.image",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/F:/Pictures/To think/67E.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/settings/image",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"settings",
+								"image"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resumes",
+			"item": [
+				{
+					"name": "Get editor's resume",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/resumes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resumes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update resume",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rodrick Ryan\",\n    \"title\": \"Regional Group Officer\",\n    \"summary\": \"Architecto reiciendis voluptates ducimus aut. Dolor nostrum sequi voluptates rerum dolores nesciunt ea eligendi harum. Et voluptas molestiae. Qui non repellendus incidunt repellendus consectetur. Laudantium labore magni quis. Cupiditate dolorum ut quidem cumque ut placeat soluta at est.\",\n    \"phone\": \"8622 311318\",\n    \"email\": \"Trystan12@yahoo.com\",\n    \"website\": \"http://aimee.net\",\n    \"location\": \"Sengerside, Sao Tome and Principe\",\n    \"experience\": [\n        {\n            \"position\": \"Customer Intranet Manager\",\n            \"company\": \"Zemlak, Quigley and Boehm\",\n            \"from\": \"2020-06-02T09:35:09.2631161\",\n            \"to\": \"2021-01-05T03:41:04.7120564\",\n            \"summary\": null,\n            \"remarks\": \"Rem sunt voluptas id repudiandae perspiciatis. Harum fugiat quos consequatur. Ipsum excepturi dolor sunt doloremque consequatur neque sit id ea. Voluptatem et voluptatibus. Consectetur ut et. Similique dolores enim possimus dolor consequatur aliquid omnis.;Et deleniti inventore voluptas incidunt aut. Non doloribus est sed in cupiditate. Et doloremque aut recusandae non qui earum distinctio quia. Labore voluptas eos possimus qui veniam cum incidunt vel. Tenetur molestiae consequatur omnis sunt dolor laborum distinctio reiciendis. Sed doloribus est praesentium eligendi facere quibusdam quam nulla.;Doloribus ad corporis cupiditate iure earum est. Impedit explicabo aut velit. Ut eos voluptatem blanditiis commodi facere voluptas minima. Aliquid eius magnam ut ea et rerum atque.\"\n        },\n        {\n            \"position\": \"Future Markets Associate\",\n            \"company\": \"Willms LLC\",\n            \"from\": \"2020-07-09T05:33:45.6926107\",\n            \"to\": \"2021-03-11T22:39:16.5894336\",\n            \"summary\": null,\n            \"remarks\": \"Non enim omnis error autem itaque iste omnis minus nisi. Explicabo quos magnam. Molestiae dicta ad sequi ut.\"\n        },\n        {\n            \"position\": \"Dynamic Optimization Manager\",\n            \"company\": \"McLaughlin, Corwin and Herman\",\n            \"from\": \"2020-04-14T00:59:53.1797759\",\n            \"to\": \"2020-09-25T03:05:39.5422683\",\n            \"summary\": null,\n            \"remarks\": \"Occaecati tenetur facere esse. Et blanditiis exercitationem nulla excepturi voluptates qui. Nostrum omnis et expedita. Et possimus doloremque eligendi tempora eaque ipsa molestiae.;Qui et veritatis esse repudiandae debitis in ut. Saepe suscipit et illum vero optio. Qui dicta harum ullam. Veniam veniam voluptas cumque tempore ratione dolorem. Porro quis nam soluta vel quo tempora qui. Tempora quia porro perferendis similique omnis.\"\n        }\n    ],\n    \"education\": [\n        {\n            \"title\": \"Regional Directives Representative\",\n            \"institution\": \"Zulauf Inc\",\n            \"from\": \"2020-10-08T06:27:11.2876093\",\n            \"to\": \"2020-04-07T04:00:29.5969057\",\n            \"summary\": null,\n            \"remarks\": \"Ullam suscipit ullam. Et minus placeat vel repellendus occaecati libero facere. Qui totam eligendi. Vero nemo qui. Porro cupiditate quis sint id ut dolorem.;Velit autem consequatur assumenda velit. Sequi dolor maiores deserunt delectus velit repellendus labore est iusto. Doloremque provident iure consequatur aut maiores dicta laudantium qui vel. Adipisci molestias omnis molestiae ipsum occaecati aut exercitationem maxime ut. Sunt ut corporis accusamus porro dolorum eum recusandae.\"\n        },\n        {\n            \"title\": \"Product Branding Executive\",\n            \"institution\": \"Weimann, Grimes and Gaylord\",\n            \"from\": \"2020-04-29T18:20:34.2013822\",\n            \"to\": \"2020-11-29T01:49:29.4817345\",\n            \"summary\": null,\n            \"remarks\": \"Eum vitae incidunt officia deleniti. Eaque doloremque voluptatem magni molestiae eligendi eligendi ullam a. Veritatis incidunt ut totam beatae et non ad fugit. Qui et sint fuga quibusdam ut qui non. Quos nemo porro reprehenderit rerum culpa ex libero voluptatem eius. Aut rerum laboriosam ea fugiat vitae.;Tempora dolor omnis a rem omnis. Velit aut rerum. Non accusamus voluptas in laudantium.\"\n        },\n        {\n            \"title\": \"Global Tactics Assistant\",\n            \"institution\": \"Torphy - Reilly\",\n            \"from\": \"2020-03-28T22:44:44.2191137\",\n            \"to\": \"2020-11-04T09:55:24.945546\",\n            \"summary\": null,\n            \"remarks\": \"Dolor nostrum excepturi temporibus porro dolor consequatur. Est itaque aliquid et et debitis ipsum et. Vel eligendi cupiditate. Et officiis eos corrupti et. Similique quas adipisci quia ut placeat sit eum.\"\n        }\n    ],\n    \"courses\": [\n        {\n            \"name\": \"Direct Communications Facilitator\",\n            \"institution\": \"Rodriguez - Kuphal\",\n            \"year\": 2021\n        },\n        {\n            \"name\": \"Central Usability Planner\",\n            \"institution\": \"Dooley - Franecki\",\n            \"year\": 2020\n        },\n        {\n            \"name\": \"District Branding Specialist\",\n            \"institution\": \"Bauch - Schmitt\",\n            \"year\": 2021\n        },\n        {\n            \"name\": \"Global Accounts Architect\",\n            \"institution\": \"Kemmer - Bechtelar\",\n            \"year\": 2021\n        },\n        {\n            \"name\": \"Dynamic Operations Officer\",\n            \"institution\": \"Ernser LLC\",\n            \"year\": 2020\n        }\n    ],\n    \"skills\": [\n        {\n            \"name\": \"deposit\"\n        },\n        {\n            \"name\": \"lavender\"\n        },\n        {\n            \"name\": \"Toys\"\n        },\n        {\n            \"name\": \"open-source\"\n        },\n        {\n            \"name\": \"utilize\"\n        },\n        {\n            \"name\": \"Synchronised\"\n        },\n        {\n            \"name\": \"Kids\"\n        },\n        {\n            \"name\": \"Nevada\"\n        },\n        {\n            \"name\": \"Accountability\"\n        },\n        {\n            \"name\": \"CFP Franc\"\n        }\n    ],\n    \"languages\": [\n        {\n            \"name\": \"English\",\n            \"level\": \"Intermediate\"\n        },\n        {\n            \"name\": \"Spanish\",\n            \"level\": \"Native\"\n        }\n    ],\n    \"interests\": [\n        {\n            \"name\": \"Delaware Solomon Islands Dollar\"\n        },\n        {\n            \"name\": \"GB input\"\n        },\n        {\n            \"name\": \"Square Prairie\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resumes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resumes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	}
+}

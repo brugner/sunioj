@@ -1,0 +1,152 @@
+<section class="cta-section theme-bg-light py-5 animate__animated animate__fadeIn">
+    <div class="container text-center single-col-max-width">
+        <h2 class="heading mb-3">Online resume</h2>
+        <a class="btn btn-primary" href="#" target="_blank"><i class="fas fa-file-pdf mr-2"></i>Download in PDF</a>
+    </div>
+</section>
+
+<div *ngIf="resumeLoaded">
+    <div class="container px-3 px-lg-5 animate__animated animate__fadeIn">
+
+        <div class="container single-col-max-width" *ngIf="authService.user">
+            <div class="card mt-5 border-danger">
+                <div class="card-header text-white bg-danger border-danger">
+                    <strong>Editors only</strong>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-8">
+                            <p class="mb-0"><strong>Update the resume</strong></p>
+                            <span class="card-text">You can update your resume as many times as you want.</span>
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <a routerLink="/resume-config" class="btn btn-primary btn-block"><i class="fa fa-edit fa-fw"></i>Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <article class="resume-wrapper mx-auto theme-bg-light p-3 mb-5 my-5 shadow-lg">
+            <div class="resume-header">
+                <div class="row align-items-center">
+                    <div class="resume-title col-12 col-md-6 col-lg-8 col-xl-9">
+                        <h2 class="resume-name mb-0 text-uppercase">{{resume.name}}</h2>
+                        <div class="resume-tagline mb-3 mb-md-0">{{resume.title}}</div>
+                    </div>
+
+                    <div class="resume-contact col-12 col-md-6 col-lg-4 col-xl-3">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><i class="fas fa-phone-square fa-fw fa-lg mr-2 "></i><a class="resume-link" href="tel:#">{{resume.phone}}</a></li>
+                            <li class="mb-2"><i class="fas fa-envelope-square fa-fw fa-lg mr-2"></i><a class="resume-link" href="mailto:#">{{resume.email}}</a></li>
+                            <li class="mb-2"><i class="fas fa-globe fa-fw fa-lg mr-2"></i><a class="resume-link" href="#">{{resume.website}}</a></li>
+                            <li class="mb-0"><i class="fas fa-map-marker-alt fa-fw fa-lg mr-2"></i>{{resume.location}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="resume-intro py-3">
+                <div class="media flex-column flex-md-row align-items-center">
+                    <div class="media-body text-justify">
+                        <p class="text-justify">{{resume.summary}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="resume-body">
+                <div class="row">
+                    <div class="resume-main col-12 col-lg-8 col-xl-9 pr-0 pr-lg-5">
+                        <section *ngIf="resume.experience.length > 0" class="work-section py-3">
+                            <h3 class="text-uppercase resume-section-heading mb-2">Experience</h3>
+                            <div *ngFor="let experience of resume.experience" class="item mb-4">
+                                <div class="item-heading row align-items-center mb-2">
+                                    <h4 class="item-title col-12 col-md-6 col-lg-6 mb-2 mb-md-0">{{experience.position}}</h4>
+                                    <div class="item-meta col-12 col-md-6 col-lg-6 text-muted text-left text-md-right">{{experience.company}} | {{experience.from | date:'LLL yyyy'}} - {{(experience.to) ? (experience.to | date:'LLL yyyy') : 'Present'}}</div>
+                                </div>
+                                <div class="item-content text-justify">
+                                    <ul class="resume-list">
+                                        <li *ngFor="let remark of experience.remarks.split(';')">{{remark}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section *ngIf="resume.education.length > 0" class="work-section py-3">
+                            <h3 class="text-uppercase resume-section-heading mb-2">Education</h3>
+                            <div *ngFor="let education of resume.education" class="item mb-4">
+                                <div class="item-heading row align-items-center mb-2">
+                                    <h4 class="item-title col-12 col-md-6 col-lg-6 mb-2 mb-md-0">{{education.title}}</h4>
+                                    <div class="item-meta col-12 col-md-6 col-lg-6 text-muted text-left text-md-right">{{education.institution}} | {{education.from | date:'LLL yyyy'}} - {{(education.to) ? (education.to | date:'LLL yyyy') : 'Present'}}</div>
+                                </div>
+                                <div class="item-content text-justify">
+                                    <ul class="resume-list">
+                                        <li *ngFor="let remark of education.remarks.split(';')">{{remark}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section *ngIf="resume.courses.length > 0" class="work-section py-3">
+                            <h3 class="text-uppercase resume-section-heading mb-2">Courses</h3>
+                            <div class="item mb-5">
+                                <div class="item-content">
+                                    <ul class="resume-list">
+                                        <li *ngFor="let course of resume.courses">
+                                            {{course.name}} - {{course.institution}} {{(course.year) ? '(' + course.year + ')': ''}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <aside class="resume-aside col-12 col-lg-4 col-xl-3 px-lg-4 pb-lg-4">
+                        <section *ngIf="resume.skills.length > 0" class="skills-section py-3">
+                            <h3 class="text-uppercase resume-section-heading mb-2">Skills</h3>
+                            <div class="item">
+                                <ul class="list-unstyled resume-skills-list">
+                                    <li class="mb-2" *ngFor="let skill of resume.skills">{{skill.name}}</li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <section *ngIf="resume.languages.length > 0" class="skills-section py-3">
+                            <h3 class="text-uppercase resume-section-heading mb-2">Languages</h3>
+                            <ul class="list-unstyled resume-lang-list">
+                                <li *ngFor="let language of resume.languages">{{language.name}} <span class="text-muted">({{language.level}})</span></li>
+                            </ul>
+                        </section>
+
+                        <section *ngIf="resume.interests.length > 0" class="skills-section py-3">
+                            <h3 class="text-uppercase resume-section-heading mb-2">Interests</h3>
+                            <ul class="list-unstyled resume-interests-list mb-0">
+                                <li *ngFor="let interest of resume.interests">{{interest.name}}</li>
+                            </ul>
+                        </section>
+                    </aside>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="resume-footer text-center">
+                <ul class="resume-social-list list-inline mx-auto mb-0 d-inline-block text-muted">
+                    <li class="list-inline-item mb-lg-0 mr-3"><a class="resume-link" href="{{socialsLinkedIn}}"><i class="fab fa-linkedin fa-2x mr-2" data-fa-transform="down-4"></i></a></li>
+                    <li class="list-inline-item mb-lg-0 mr-3"><a class="resume-link" href="{{socialsGithub}}"><i class="fab fa-github-square fa-2x mr-2" data-fa-transform="down-4"></i></a></li>
+                    <li class="list-inline-item mb-lg-0 mr-3"><a class="resume-link" href="{{socialsStackoverflow}}"><i class="fab fa-stack-overflow fa-2x mr-2" data-fa-transform="down-4"></i></a></li>
+                </ul>
+            </div>
+        </article>
+    </div>
+</div>
+
+<div *ngIf="!resumeLoaded" class="minh-100 d-flex justify-content-center align-items-center animate__animated animate__fadeIn">
+    Loading..
+</div>

@@ -1,0 +1,39 @@
+<section class="cta-section p-3 p-lg-5 theme-bg-light py-5">
+    <div class="container">
+        <h2 class="title mb-2">Service packages</h2>
+        <span>Manage the services you offer.</span>
+    </div>
+</section>
+
+<div class="minh-100">
+    <section class="container p-3 p-lg-5 animate__animated animate__fadeIn">
+        <button class="btn btn-primary" routerLink="/service-packages/new"><i class="fa fa-plus-circle"></i> New</button>
+
+        <div class="row">
+            <div class="item col-12">
+                <div class="item-inner">
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="packagesTrigger" class="row-border hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Order</th>
+                                <th>Created at</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let servicePackage of packages">
+                                <td>{{ servicePackage.id }}</td>
+                                <td><a routerLink="/service-packages/{{servicePackage.id}}" title="{{servicePackage.description}}">{{ servicePackage.name }}</a></td>
+                                <td>{{ servicePackage.price }}</td>
+                                <td>{{ servicePackage.order }}</td>
+                                <td>{{ servicePackage.createdAt | date:"yyyy/MM/dd" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

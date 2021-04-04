@@ -1,0 +1,40 @@
+<section class="p-3 p-lg-5 mb-5 theme-bg-light">
+    <div class="container">
+        <h2 class="mb-3 small-caps">Log in</h2>
+        <div class="mb-4 text-justify">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis at consectetur lorem donec massa sapien faucibus et molestie. Sem integer vitae justo eget magna fermentum iaculis eu non.
+        </div>
+    </div>
+</section>
+
+<section class="p-3 p-lg-5">
+    <div class="container minh-100">
+        <h2 class="section-title font-weight-bold">You shall not pass!</h2>
+        <div class="section-intro mb-5">How did you find this page? Hmm, well.. you think you are a match for this mighty trial? Go ahead, it's all yours!</div>
+        <div class="row">
+            <div class="col-12">
+
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="username">Email</label>
+                        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.username.errors }" autocomplete="email" />
+                        <div *ngIf="submitted && form.username.errors" class="invalid-feedback">
+                            <div *ngIf="form.username.errors.required">Email is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.password.errors }" autocomplete="current-password" />
+                        <div *ngIf="submitted && form.password.errors" class="invalid-feedback">
+                            <div *ngIf="form.password.errors.required">Password is required</div>
+                        </div>
+                    </div>
+                    <button [disabled]="loading" class="btn btn-primary">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Log in
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

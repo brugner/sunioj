@@ -1,0 +1,77 @@
+<div [hidden]="isLoading" class="animate__animated animate__fadeIn">
+    <section class="cta-section p-3 p-lg-5 theme-bg-light py-5">
+        <div class="container">
+            <h2 class="title mb-2">Service FAQs</h2>
+            <span>Add or remove frequently asked questions related to your services.</span>
+        </div>
+    </section>
+
+    <div class="minh-100">
+        <section class="container p-3 p-lg-5">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <form [formGroup]="faqForm" (ngSubmit)="submitForm()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="question" placeholder="Question">
+                            <span *ngIf="question.invalid && question.errors.required && (question.dirty || question.touched)" class="text-danger">
+                                The question is required.
+                            </span>
+                            <span *ngIf="question.invalid && question.errors.maxlength && (question.dirty || question.touched)" class="text-danger">
+                                Max length must be 100.
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" formControlName="answer" placeholder="Answer"></textarea>
+                            <span *ngIf="answer.invalid && answer.errors.required && (answer.dirty || answer.touched)" class="text-danger">
+                                The answer is required.
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" class="form-control" formControlName="order" placeholder="The order of appearance in the list">
+                            <span *ngIf="order.invalid && order.errors.required && (order.dirty || order.touched)" class="text-danger">
+                                An order is required.
+                            </span>
+                        </div>
+
+                        <div class="form-group buttons-row">
+                            <button class="btn btn-primary float-right" type="submit" [disabled]="!faqForm.valid || isSubmitting"><i class="fa fa-save"></i> Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="item col-12">
+                    <div class="item-inner">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="faqsTrigger" class="row-border hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Question</th>
+                                    <th>Answer</th>
+                                    <th>Order</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let faq of faqs">
+                                    <td>{{ faq.id }}</td>
+                                    <td>{{ faq.question }}</td>
+                                    <td>{{ faq.answer }}</td>
+                                    <td>{{ faq.order }}</td>
+                                    <td><button (click)="deleteFaq(faq.id)" class="btn"><i class="fa fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div *ngIf="isLoading" class="minh-100 d-flex justify-content-center align-items-center animate__animated animate__fadeIn">
+    Loading..
+</div>

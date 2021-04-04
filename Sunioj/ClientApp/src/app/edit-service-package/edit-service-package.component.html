@@ -1,0 +1,63 @@
+<div *ngIf="!isLoading">
+    <section class="p-3 p-lg-5 mb-5 theme-bg-light animate__animated animate__fadeIn">
+        <div class="container">
+            <h2 class="mb-3 small-caps">{{(isNew) ? 'New service package' : 'Edit service package'}}</h2>
+            <div class="mb-4 text-justify">
+                Time to improve.
+            </div>
+        </div>
+    </section>
+
+    <section class="p-3 p-lg-5 minh-100 mb-5 animate__animated animate__fadeIn">
+        <div class="container">
+            <h2 class="section-title small-caps font-weight-bold mb-3">Complete the form</h2>
+            <div class="section-intro mb-5">Every single field and hit update.</div>
+
+            <form [formGroup]="servicePackageForm" (keydown.enter)="$event.preventDefault()" (keydown.shift.enter)="$event.preventDefault()">
+
+                <input type="hidden" formControlName="id">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                    <span *ngIf="name.invalid && name.errors.required && (name.dirty || name.touched)" class="text-danger">
+                        A name is required.
+                    </span>
+                    <span *ngIf="name.invalid && name.errors.maxlength && (name.dirty || name.touched)" class="text-danger">
+                        Max length must be 50.
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName="description" placeholder="The service package description">
+                    <span *ngIf="description.invalid && description.errors.required && (description.dirty || description.touched)" class="text-danger">
+                        A description is required.
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <input type="number" class="form-control" formControlName="price" placeholder="The service package price">
+                    <span *ngIf="price.invalid && price.errors.required && (price.dirty || price.touched)" class="text-danger">
+                        A price is required.
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <input type="number" class="form-control" formControlName="order" placeholder="The service package order">
+                    <span *ngIf="order.invalid && order.errors.required && (order.dirty || order.touched)" class="text-danger">
+                        An order is required.
+                    </span>
+                </div>
+
+                <div class="form-group buttons-row">
+                    <button *ngIf="!isNew" (click)="deleteServicePackage()" class="btn btn-danger mr-2"><i class="fa fa-trash fa-fw"></i>Delete</button>
+                    <a class="btn btn-default float-right" routerLink='/service-packages'>Cancel</a>
+                    <button class="btn btn-primary float-right" type="button" (click)="submitForm()" [disabled]="!servicePackageForm.valid || isSubmitting"><i class="fa fa-save"></i> {{(isNew) ? 'Create' : 'Update'}}</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+<div *ngIf="isLoading" class="minh-100 d-flex justify-content-center align-items-center animate__animated animate__fadeIn">
+    Loading..
+</div>

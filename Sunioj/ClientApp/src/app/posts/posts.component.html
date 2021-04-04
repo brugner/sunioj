@@ -1,0 +1,45 @@
+<div [hidden]="isLoading" class="animate__animated animate__fadeIn">
+    <section class="cta-section p-3 p-lg-5 theme-bg-light py-5">
+        <div class="container">
+            <h2 class="title mb-2">Posts</h2>
+            <span>This is writing time.</span>
+        </div>
+    </section>
+
+    <div class="minh-100">
+        <section class="container p-3 p-lg-5 animate__animated animate__fadeIn">
+            <div class="row">
+                <div class="item col-12">
+                    <div class="item-inner">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="postsTrigger" class="row-border hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Created at</th>
+                                    <th>Updated at</th>
+                                    <th>Tags</th>
+                                    <th>Is draft?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let post of posts">
+                                    <td>{{ post.id }}</td>
+                                    <td><a routerLink="/blog/post/{{post.slug}}" title="{{post.summary}}">{{ post.title }}</a></td>
+                                    <td>{{ post.createdAt | date:"yyyy/MM/dd" }}</td>
+                                    <td>{{ post.updatedAt | date:"yyyy/MM/dd" }}</td>
+                                    <td><span *ngFor="let tag of post.tags" class="mr-1"><a routerLink="/blog/tag/{{tag.name}}">#{{tag.name}}</a></span></td>
+                                    <td class="text-center"><i [ngClass]="(post.isDraft) ? 'fas fa-check-circle' : 'far fa-times-circle'"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div *ngIf="isLoading" class="minh-100 d-flex justify-content-center align-items-center animate__animated animate__fadeIn">
+    Loading..
+</div>

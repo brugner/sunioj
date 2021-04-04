@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navigation" class="collapse navbar-collapse flex-column">
+        <div class="profile-section pt-3 pt-lg-0">
+            <img class="profile-image mb-3 rounded-circle mx-auto" src="{{siteImage}}" alt="image">
+
+            <div class="bio mb-3">{{editorBio}}</div>
+
+            <ul *ngIf="settingsLoaded" class="social-list list-inline py-2 mx-auto">
+                <li *ngIf="socialsLinkedIn.length > 0" class="list-inline-item"><a href="{{socialsLinkedIn}}" target="_blank"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+                <li *ngIf="socialsGithub.length > 0" class="list-inline-item"><a href="{{socialsGithub}}" target="_blank"><i class="fab fa-github-alt fa-fw"></i></a></li>
+                <li *ngIf="socialsStackoverflow.length > 0" class="list-inline-item"><a href="{{socialsStackoverflow}}" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+                <li *ngIf="socialsTwitter.length > 0" class="list-inline-item"><a href="{{socialsTwitter}}" target="_blank"><i class="fab fa-twitter fa-fw"></i></a></li>
+                <li *ngIf="socialsFacebook.length > 0" class="list-inline-item"><a href="{{socialsFacebook}}" target="_blank"><i class="fab fa-facebook fa-fw"></i></a></li>
+                <li *ngIf="socialsInstagram.length > 0" class="list-inline-item"><a href="{{socialsInstagram}}" target="_blank"><i class="fab fa-instagram fa-fw"></i></a></li>
+            </ul>
+
+            <hr>
+        </div>
+
+        <ul class="navbar-nav flex-column text-left">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/about-me" [routerLinkActive]="['active-menu']"><i class="fas fa-user fa-fw mr-2"></i>About me</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/resume" [routerLinkActive]="['active-menu']"><i class="fas fa-file-alt fa-fw mr-2"></i>Resume</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/blog/tag/project"><i class="fas fa-laptop-code fa-fw mr-2"></i>Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/blog" [routerLinkActive]="['active-menu']"><i class="fas fa-blog fa-fw mr-2"></i>Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/services-and-pricing" [routerLinkActive]="['active-menu']"><i class="fas fa-dollar-sign fa-fw mr-2"></i>Services & pricing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/contact" [routerLinkActive]="['active-menu']"><i class="fas fa-envelope-open-text fa-fw mr-2"></i>Contact</a>
+            </li>
+            <li *ngIf="authService.user" class="nav-item">
+                <a class="nav-link" routerLink="/dashboard" [routerLinkActive]="['active-menu']"><i class="fas fa-tachometer-alt fa-fw mr-2"></i>Dashboard</a>
+            </li>
+            <li *ngIf="authService.user" class="nav-item">
+                <a class="nav-link" href="#" (click)="logout()"><i class="fas fa-sign-out-alt fa-fw mr-2"></i>Log out</a>
+            </li>
+        </ul>
+
+        <div class="dark-mode-toggle text-center w-100">
+            <hr class="mb-4">
+            <h4 class="toggle-name mb-3"><i class="fas fa-adjust mr-1"></i>Dark mode</h4>
+
+            <input class="toggle" id="darkmode" type="checkbox" #darkModeCheckbox (change)="onDarkModeChanged($event)">
+            <label class="toggle-btn mx-auto mb-0" for="darkmode"></label>
+        </div>
+    </div>
+</nav>
